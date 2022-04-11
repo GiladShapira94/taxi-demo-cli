@@ -8,7 +8,7 @@ spec:
   - url: taxi.py
     name: taxi
     image: mlrun/mlrun
-    requirements: ['pip install lightgbm shapely']
+    requirements: ['lightgbm','shapely']
   workflows:
   - name: taxi-workflow
     path: ./workflow.py
