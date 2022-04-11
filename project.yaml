@@ -1,0 +1,16 @@
+kind: project
+metadata:
+  name: taxi-cli
+spec:
+  params:
+    label_column: label
+  functions:
+  - url: taxi.py
+    name: taxi
+    image: mlrun/mlrun
+    requirements: ['pip install lightgbm shapely']
+  workflows:
+  - name: taxi-workflow
+    path: ./workflow.py
+    handler: kfpipeline
+    engine: local
