@@ -47,4 +47,10 @@ def kfpipeline():
         handler="train_model",
         inputs={"input_ds" : transform.outputs['nyc-taxi-dataset-transformed']},
         outputs=['FareModel'])
-  
+  #Build serving function
+    serving = mlrun.code_to_function(filename=path.abspath('model-serving.ipynb'),kind = 'serving',image='mlrun/mlrun').apply(auto_mount())
+    serving.spec.default_class = 'LGBMModel'
+    serving.spec.build.commands = ['pip install lightgbm']
+    serving.add_model('taxi-serving', train_model_run.outputs['FareModel'])
+    serving_address = serving.deploy()
+    deploy = funcs["model-serving"].deploy_step(models={"taxi-serving_v1": train.outputs['FareModel']}, tag='v2')
