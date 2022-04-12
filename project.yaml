@@ -10,7 +10,7 @@ spec:
     image: mlrun/mlrun
     requirements: ['lightgbm','shapely']
   workflows:
-  - name: taxi-workflow
+  - name: main
     path: ./workflow.py
     handler: kfpipeline
     engine: local
