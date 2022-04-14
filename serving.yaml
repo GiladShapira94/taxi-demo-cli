@@ -1,0 +1,36 @@
+kind: serving
+metadata:
+  name: model-serving
+  tag: ''
+  project: nyc-taxi-gilad
+spec:
+  args: []
+  image: mlrun/mlrun
+  description: ''
+  default_handler: 'handler'
+  disable_auto_mount: false
+  base_spec:
+    spec:
+      build:
+        commands: ['pip install lightgbm pandas']
+        functionSourceCode: aW1wb3J0IG1scnVuCmltcG9ydCBvcwppbXBvcnQgbnVtcHkgYXMgbnAKZnJvbSBjbG91ZHBpY2tsZSBpbXBvcnQgbG9hZAoKY2xhc3MgTEdCTU1vZGVsKG1scnVuLnNlcnZpbmcuVjJNb2RlbFNlcnZlcik6CiAgICAKICAgIGRlZiBsb2FkKHNlbGYpOgogICAgICAgIG1vZGVsX2ZpbGUsIGV4dHJhX2RhdGEgPSBzZWxmLmdldF9tb2RlbCgnLnBrbCcpCiAgICAgICAgc2VsZi5tb2RlbCA9IGxvYWQob3Blbihtb2RlbF9maWxlLCAncmInKSkKCiAgICBkZWYgcHJlZGljdChzZWxmLCBib2R5KToKICAgICAgICB0cnk6CiAgICAgICAgICAgIGZlYXRzID0gbnAuYXNhcnJheShib2R5WydpbnB1dHMnXSkKICAgICAgICAgICAgcmVzdWx0ID0gc2VsZi5tb2RlbC5wcmVkaWN0KGZlYXRzKQogICAgICAgICAgICByZXR1cm4gcmVzdWx0LnRvbGlzdCgpCiAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgICAgICByYWlzZSBFeGNlcHRpb24oIkZhaWxlZCB0byBwcmVkaWN0ICVzIiAlIGUpCg==
+        noBaseImagesPull: true
+      env: []
+      handler: model-serving:handler
+      runtime: python:3.6
+      volumes: []
+  source: ''
+  function_kind: serving_v2
+  graph:
+    kind: router
+    routes:
+      taxi-serving:
+        kind: task
+        class_name: LGBMModel
+        class_args:
+          model_path: store://models/gitproject/train_FareModel#0:latest@1accc4d2-9884-4d5a-9a3f-0d9cf42f26ae
+  default_class: LGBMModel
+  secret_sources: []
+  affinity: null
+  tolerations: null
+verbose: false
