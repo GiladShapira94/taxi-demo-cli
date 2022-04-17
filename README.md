@@ -85,7 +85,8 @@ mlrun deploy -f nucliofunc.yaml -p gitproject
 
 # Run a project workflow:
   * -r - The name of the workflow file - For example, this file needs to be located in the project directory (/project/workflow.py)
-  * -w - watch option equal to true, works only on kfp engine
+  * -w - watch option equal to true
+  * If you define workflow enigine as kfp you can run workflow bt its name - ``mlrun project -n gitproject -r main -w ./projec``
 
 ````
 mlrun project -n gitproject -r workflow.py -w ./project
