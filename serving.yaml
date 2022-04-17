@@ -2,18 +2,18 @@ kind: serving
 metadata:
   name: model-serving
   tag: ''
-  project: nyc-taxi-gilad
+  project: gitproject
 spec:
   args: []
   image: mlrun/mlrun
   description: ''
-  default_handler: 'handler'
+  default_handler: handler
   disable_auto_mount: false
   base_spec:
     spec:
       build:
         commands: ['pip install lightgbm pandas']
-        functionSourceCode: aW1wb3J0IG1scnVuCmltcG9ydCBvcwppbXBvcnQgbnVtcHkgYXMgbnAKZnJvbSBjbG91ZHBpY2tsZSBpbXBvcnQgbG9hZAoKY2xhc3MgTEdCTU1vZGVsKG1scnVuLnNlcnZpbmcuVjJNb2RlbFNlcnZlcik6CiAgICAKICAgIGRlZiBsb2FkKHNlbGYpOgogICAgICAgIG1vZGVsX2ZpbGUsIGV4dHJhX2RhdGEgPSBzZWxmLmdldF9tb2RlbCgnLnBrbCcpCiAgICAgICAgc2VsZi5tb2RlbCA9IGxvYWQob3Blbihtb2RlbF9maWxlLCAncmInKSkKCiAgICBkZWYgcHJlZGljdChzZWxmLCBib2R5KToKICAgICAgICB0cnk6CiAgICAgICAgICAgIGZlYXRzID0gbnAuYXNhcnJheShib2R5WydpbnB1dHMnXSkKICAgICAgICAgICAgcmVzdWx0ID0gc2VsZi5tb2RlbC5wcmVkaWN0KGZlYXRzKQogICAgICAgICAgICByZXR1cm4gcmVzdWx0LnRvbGlzdCgpCiAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgICAgICByYWlzZSBFeGNlcHRpb24oIkZhaWxlZCB0byBwcmVkaWN0ICVzIiAlIGUpCg==
+        functionSourceCode: aW1wb3J0IGltcA0KaW1wb3J0IG1scnVuDQppbXBvcnQgb3MNCmltcG9ydCBudW1weSBhcyBucA0KZnJvbSBjbG91ZHBpY2tsZSBpbXBvcnQgbG9hZA0KDQpjbGFzcyBMR0JNTW9kZWwobWxydW4uc2VydmluZy5WMk1vZGVsU2VydmVyKToNCiAgICANCiAgICBkZWYgbG9hZChzZWxmKToNCiAgICAgICAgbW9kZWxfZmlsZSwgZXh0cmFfZGF0YSA9IHNlbGYuZ2V0X21vZGVsKCcucGtsJykNCiAgICAgICAgc2VsZi5tb2RlbCA9IGxvYWQob3Blbihtb2RlbF9maWxlLCAncmInKSkNCg0KICAgIGRlZiBwcmVkaWN0KHNlbGYsIGJvZHkpOg0KICAgICAgICB0cnk6DQogICAgICAgICAgICBmZWF0cyA9IG5wLmFzYXJyYXkoYm9keVsnaW5wdXRzJ10pDQogICAgICAgICAgICByZXN1bHQgPSBzZWxmLm1vZGVsLnByZWRpY3QoZmVhdHMpDQogICAgICAgICAgICByZXR1cm4gcmVzdWx0LnRvbGlzdCgpDQogICAgICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZToNCiAgICAgICAgICAgIHJhaXNlIEV4Y2VwdGlvbigiRmFpbGVkIHRvIHByZWRpY3QgJXMiICUgZSkNCg0KZnJvbSBtbHJ1bi5ydW50aW1lcyBpbXBvcnQgbnVjbGlvX2luaXRfaG9vaw0KZGVmIGluaXRfY29udGV4dChjb250ZXh0KToNCiAgICBudWNsaW9faW5pdF9ob29rKGNvbnRleHQsIGdsb2JhbHMoKSwgJ3NlcnZpbmdfdjInKQ0KDQpkZWYgaGFuZGxlcihjb250ZXh0LCBldmVudCk6DQogICAgcmV0dXJuIGNvbnRleHQubWxydW5faGFuZGxlcihjb250ZXh0LCBldmVudCk=
         noBaseImagesPull: true
       env: []
       handler: model-serving:handler
@@ -28,7 +28,7 @@ spec:
         kind: task
         class_name: LGBMModel
         class_args:
-          model_path: store://models/gitproject/train_FareModel#0:latest@1accc4d2-9884-4d5a-9a3f-0d9cf42f26ae
+          model_path: v3io:///projects/gitproject-gilad/artifacts/6ed8c41b-9c5c-47df-9a14-c2906284cf8a/models/FareModel.pkl
   default_class: LGBMModel
   secret_sources: []
   affinity: null
