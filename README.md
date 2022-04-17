@@ -41,7 +41,8 @@ mlrun project -n gitproject -u "git://github.com/GiladShapira94/taxi-demo-cli.gi
 ````
 mlrun project -u project.yaml . --sync
 ````
-# Build an ML Function:
+# Build an ML Functions:
+  * Build option can use only for ML function with job type.
   * -s - source file, your function code.
   * --name - define function name, overwrite the YAML file value.
   * --project - project name, if the project does not exist it will create it.
@@ -60,7 +61,7 @@ mlrun run -i taxi_records_csv_path=https://s3.wasabisys.com/iguazio/data/Taxi/ye
 mlrun run -f db://cli-test/taxi-func --name transation --handler transform_dataset --project gitproject -i zones_csv_path=/User/artifacts/gitproject/data/zones-dataset.csv -i taxi_records_csv_path=/User/artifacts/gitproject/data/nyc-taxi-dataset.csv
 ````
 # Deploy serving and nuclio functions:
-
+* Deploy option can use only for ML function with nuclio or serving type.
 * Examples of YAML files for creating serving or nuclio functions can be found in the git repository.
  * Before you deploy serving functions, you must add these lines to your code. :
  ````
