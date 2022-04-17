@@ -1,3 +1,7 @@
+#default_handler - must indicates the name of the function handler
+#functionSourceCode - you code text on base64 (remember you need to convert it)
+#handler spicify the handlfer eith this format <name of the file>:<handler name>
+
 kind: remote
 metadata:
   name: func
