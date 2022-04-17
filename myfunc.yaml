@@ -2,8 +2,11 @@
 #name - func name can be overwriten
 #base_image - base image for the ML function
 #commands - Specify all packages that must be installed.
+#project - project name
+
 kind: job
 metadata:
+  project: gitproject
   name: test-func
 spec:
   args: []
