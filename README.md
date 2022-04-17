@@ -1,11 +1,11 @@
 # taxi-demo-cli
 
-This Demo will demonstrate how to use MLRun CLI to create a project, build ML functions (jobs, serving and nuclio) and run workflows piplines.
+This demo will show you how to create a project, build ML functions (jobs, serving, and nuclio), and run workflow pipelines using the MLRun CLI.
 
 #### Setting remote envirobale:
-* You can find more inforamtion on this [documentation link](https://docs.mlrun.org/en/latest/howto/remote.html?highlight=working%20from%20remote)
-* Important - define MLRUN_ARTIFACT_PATH with v3io path:
- * With this setting your artifcats will save in v3io path and can expose and used by athoer functions, if you dont use it you will have to apply auto_mount in your code or when you run a function.
+* More information is available at [documentation link](https://docs.mlrun.org/en/latest/howto/remote.html?highlight=working%20from%20remote)
+* Important: MLRUN ARTIFACT PATH should be set to the v3io location:
+ * With this setting your artifacts will be saved in the v3io path and exposed and used by other functions; if you don't, you'll have to use auto mount in your code (an example can be found in the workflow.py file) or run a function with the —auto-mount option.
   
  Example:
  ````
@@ -15,7 +15,7 @@ This Demo will demonstrate how to use MLRun CLI to create a project, build ML fu
 # Build a project:
 
 #### Using GitHub:
-* For working with secrets for privete repositories you need to define two environment variables, Example:
+* You must define two environment variables to work with secrets for clone private repositories, for example:
 ````
  export git_user=User
 ````
@@ -23,26 +23,33 @@ This Demo will demonstrate how to use MLRun CLI to create a project, build ML fu
  export git_password= GitToken
  
 ````
-* Create a project and sync it to db - You have to have at list one function in your YAML file to create a project from a YAML file, and when the project will create all functions will build automateclly in the project.
-  * -n - Define the name of the project , it overwrithe the name that writen in the YAML file.
-  * -u = Define the url to your fit repository, can use to direct to a local project YAML file.
-  * ./project - The name of the directory that will contain all the clone files.
-  * --sync - Use to sync the project.yaml to system db, if you would not write it you would not see the project until you run a function or a workflow.
+* Create a project and sync it to the db - To create a project from a YAML file, you must have at least one function, and when the project is created, all functions will be built automatically.
+  * -n - Define the name of the project, it overwrites the name that was written in the YAML file.
+  * -u = Define the URL to your file repository, which can be use to direct to a local project YAML file.
+  * ./project - The directory’s name will contain all the GitHub repository files.
+  * --sync - Use to sync the project.yaml to the system DB; if you don't write it, the project won't appear in the UI until you run at least one function or workflow.
 
 ````
 mlrun project -n gitproject -u "git://github.com/GiladShapira94/taxi-demo-cli.git" ./project --sync
 ````
 #### Using Local Yaml file:
 
-* Create a project and sync it to db:
- * -u = Define the url to your fit repository, can use to direct to a local project YAML file.
+* Create a project and sync it to DB:
+ * -u = Define the URL to your fit repository, which can use to direct to a local project YAML file.
  * . - specify the context folder 
- * --sync - Use to sync the project.yaml to system db, if you would not write it you would not see the project until you run a function or a workflow.
+ * --sync - Use to sync the project.yaml to the system DB; if you don't write it, the project won't appear in the UI until you run at least one function or workflow.
 ````
 mlrun project -u project.yaml . --sync
 ````
-# Build a ML Function:
-*
+# Build an ML Function:
+  * -s - source file, your function code.
+  * --name - define function name, overwrite the YAML file value.
+  * --project - project name, if the project does not exist it will create it.
+  * myfunc.yaml - you have to define a YAML file.
+````
+mlrun build -s test.py --name func  --project gitproject myfunc.yaml
+````
+
 # Run a ML Function:
 #### Run with remote inputs:
 ````
@@ -54,9 +61,8 @@ mlrun run -f db://cli-test/taxi-func --name transation --handler transform_datas
 ````
 # Deploy serving and nuclio functions:
 
-* For creating serving or nuclio function, you can see examples to yaml files in the git repository
- * Need to convert your code text to Base64 - Tip using this [link](https://md5decrypt.net/en/Conversion-tools) and choose the Text to Base64 options
- * Important you need to add to your code this lines befor you deploy serving functions :
+* Examples of YAML files for creating serving or nuclio functions can be found in the git repository.
+ * Before you deploy serving functions, you must add these lines to your code. :
  ````
  from mlrun.runtimes import nuclio_init_hook
  def init_context(context):
@@ -65,6 +71,8 @@ mlrun run -f db://cli-test/taxi-func --name transation --handler transform_datas
  def handler(context, event):
      return context.mlrun_handler(context, event)
  ````
+ * Your code text must be converted to Base64 - you can use this [link](https://md5decrypt.net/en/Conversion-tools) and choose the Text to Base64 options, or you can use linux base64 command - `base64 model-serving.py`
+
  * For deploy nuclio function:
 ````
 mlrun deploy -f nucliofunc.yaml -p gitproject
@@ -75,10 +83,12 @@ mlrun deploy -f nucliofunc.yaml -p gitproject
 ````
 
 # Run a project workflow:
-  * -r - The name of the workflow file - For example this file need to be located in project direcory (/project/workflow.py)
+  * -r - The name of the workflow file - For example, this file needs to be located in the project directory (/project/workflow.py)
   * -w - watch option equal to true, works only on kfp engine
 
 ````
 mlrun project -n gitproject -r workflow.py -w ./project
 ````
+
+
 
