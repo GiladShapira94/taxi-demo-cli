@@ -13,4 +13,4 @@ spec:
   - name: main
     path: ./workflow.py
     handler: kfpipeline
-    engine: local
+    engine: kfp
