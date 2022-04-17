@@ -14,3 +14,12 @@ spec:
     path: ./workflow.py
     handler: kfpipeline
     engine: kfp
+  artifacts:
+  - kind: ''
+    target_path: https://s3.wasabisys.com/iguazio/data/iris/iris.data.raw.csv
+    key: data
+  source: ./
+  subpath: ''
+  origin_url: ''
+  load_source_on_run: true
+  desired_state: online
