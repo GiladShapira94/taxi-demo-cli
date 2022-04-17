@@ -1,3 +1,6 @@
+# functionSourceCode - text code on base64
+# model_path - must change by the curent model path (you can use: mlrun get artifacts -p <project name>
+
 kind: serving
 metadata:
   name: model-serving
