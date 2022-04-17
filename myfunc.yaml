@@ -1,0 +1,11 @@
+kind: serving
+metadata:
+  name: test-func
+spec:
+  env:
+    ENABLE_EXPLAINER: false
+    MODEL_CLASS: LGBMModel
+  args: []
+  image_pull_policy: Always
+  build:
+    base_image: mlrun/mlrun
