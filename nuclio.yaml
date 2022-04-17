@@ -1,0 +1,29 @@
+kind: remote
+metadata:
+  name: func
+  tag: ''
+  project: test-gilad
+spec:
+  command: ''
+  args: []
+  image: mlrun/mlrun
+  description: ''
+  default_handler: print_hello
+  disable_auto_mount: true
+  base_spec:
+    spec:
+      build:
+        commands: ['pip install pandas']
+        functionSourceCode: ZGVmIHByaW50X2hlbGxvKCk6CiAgICBwcmludChoZWxsbyk=
+        noBaseImagesPull: true
+      env: []
+      handler: Untitled:print_hello
+      runtime: python:3.6
+      volumes: []
+  source: ''
+  affinity: null
+  tolerations: null
+status:
+  internal_invocation_urls: []
+  external_invocation_urls: []
+verbose: true
