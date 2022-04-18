@@ -53,6 +53,11 @@ mlrun build -s test.py --name func  --project gitproject myfunc.yaml
 
 # Run a ML Function:
 #### Run with remote inputs:
+  * -i  - function inputs
+  * -f - function url
+  * --project - project name
+  * --handler - function handler , the python function name.
+  * --auto-mount - add volume mount to job using auto mount option
 ````
 mlrun run -i taxi_records_csv_path=https://s3.wasabisys.com/iguazio/data/Taxi/yellow_tripdata_2019-01_subset.csv -i zones_csv_path=https://s3.wasabisys.com/iguazio/data/Taxi/taxi_zones.csv  --project gitproject -f db://gitproject/taxi --handler fetch_data --auto-mount
 ````
