@@ -1,25 +1,18 @@
 kind: project
 metadata:
-  name: taxi-cli
+  name: aa-gilad
+  created: '2022-09-29T11:48:45.523000'
 spec:
-  params:
-    label_column: label
   functions:
-  - url: taxi.py
-    name: taxi
-    image: mlrun/mlrun
-    requirements: ['lightgbm','shapely']
+  - url: db://gilad-testing/add-2
+    name: add-2
   workflows:
-  - name: main
-    path: ./workflow.py
-    handler: kfpipeline
-    engine: kfp
-  artifacts:
-  - kind: ''
-    target_path: https://s3.wasabisys.com/iguazio/data/iris/iris.data.raw.csv
-    key: data
-  source: ./
-  subpath: ''
-  origin_url: ''
-  load_source_on_run: true
+  - path: workflow.py
+    name: testing
+    schedule: '*/10 * * * *'
+  artifacts: []
+  source: ''
   desired_state: online
+  owner: shapira
+status:
+  state: online
